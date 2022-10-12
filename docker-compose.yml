@@ -3,10 +3,12 @@ version: '3'
 services:
     laravel.test:
         build:
-            context: ./vendor/laravel/sail/runtimes/8.1
+            context: ./docker/8.1
             dockerfile: Dockerfile
             args:
                 WWWGROUP: '${WWWGROUP}'
+                XDEBUG: '${XDEBUG}'
+                XDEBUG_PORT: '${XDEBUG_PORT}'
         image: sail-8.1/app
         extra_hosts:
             - 'host.docker.internal:host-gateway'
