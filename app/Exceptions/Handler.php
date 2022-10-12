@@ -2,7 +2,14 @@
 
 namespace App\Exceptions;
 
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\Response;
+use Illuminate\Validation\UnauthorizedException;
+use Illuminate\Validation\ValidationException;
+use Spatie\FlareClient\Http\Exceptions\NotFound;
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -47,4 +54,49 @@ class Handler extends ExceptionHandler
             //
         });
     }
+
+	public function render($request, Throwable $e)
+	{
+		if ($e instanceof ValidationException) {
+			return response()->json([
+				'code' => 'validation_exception',
+				'error' => $e->getMessage(),
+				'messages' => $e->validator->errors()->getMessages(),
+			], Response::HTTP_UNPROCESSABLE_ENTITY);
+		}
+
+		if ($e instanceof MethodNotAllowedHttpException) {
+			return response()->json([
+				'code' => 'method_not_allowed',
+				'error' => 'This method is not available for this route',
+			], Response::HTTP_METHOD_NOT_ALLOWED);
+		}
+
+		if ($e instanceof ModelNotFoundException) {
+			return response()->json([
+				'code' => 'resource_not_found',
+				'error' => 'Resource not found',
+			], Response::HTTP_NOT_FOUND);
+		}
+
+		if ($e instanceof NotFoundHttpException) {
+			return response()->json([
+				'code' => 'route_not_found',
+				'error' => 'route not found',
+			], Response::HTTP_NOT_FOUND);
+		}
+
+		if ($e instanceof NotFound) {
+			return response()->json([
+				'code' => 'not_found',
+				'error' => 'register not found ' . $e->getMessage(),
+			], Response::HTTP_NOT_FOUND);
+		}
+
+		return response()->json([
+			'code' => 'internal_server_error',
+			'error' => $e->getMessage(),
+			'messages' => $e->getTrace(),
+		], Response::HTTP_INTERNAL_SERVER_ERROR);
+	}
 }
