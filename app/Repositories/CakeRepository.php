@@ -35,6 +35,8 @@ class CakeRepository
 		if (blank($cake))
 			return false;
 
+		$cake->subscribers()->delete();
+
 		return $cake->delete();
 	}
 

@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class CakeResource extends JsonResource
+class CakeSubscriberResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,12 +16,8 @@ class CakeResource extends JsonResource
     {
         return [
 			'id' => $this->id,
-			'name' => $this->name,
-			'weight' => $this->weight,
-			'price' => $this->price,
-			'quantity' => $this->quantity,
-			'is_available' => $this->is_available,
-			'subscribers' => CakeSubscriberResource::collection($this->subscribers)
+			'cake_id' => $this->cake_id,
+			'email' => $this->email,
 		];
     }
 }

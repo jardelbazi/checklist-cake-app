@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreCakeRequest;
+use App\Http\Requests\UpdateCakeRequest;
 use App\Http\Resources\CakeResource;
 use App\Services\CakeService;
 use Illuminate\Http\Resources\Json\ResourceCollection;
@@ -17,13 +18,13 @@ class CakeController extends Controller
 	public function store(StoreCakeRequest $request): Response
 	{
 		$content = new CakeResource(
-			$this->cakeService->create($request->validated())
+			$this->cakeService->create($request->all())
 		);
 
 		return response($content, Response::HTTP_CREATED);
 	}
 
-	public function update(StoreCakeRequest $request, $id): CakeResource
+	public function update(UpdateCakeRequest $request, $id): CakeResource
 	{
 		return new CakeResource(
 			$this->cakeService->update($id, $request->validated())

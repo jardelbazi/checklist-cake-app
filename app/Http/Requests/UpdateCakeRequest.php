@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreCakeRequest extends FormRequest
+class UpdateCakeRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,11 +24,9 @@ class StoreCakeRequest extends FormRequest
     public function rules()
     {
         return [
-			'name' => "required|string|min:3|max:255",
-            'weight' => 'required|numeric',
-            'price' => 'required|numeric',
-            'quantity' => 'integer',
-            'is_available' => 'boolean',
-        ];
+			'name' => "string|min:3|max:255",
+			'weight' => 'numeric',
+			'price' => 'numeric',
+		];
     }
 }
