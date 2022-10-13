@@ -29,6 +29,7 @@ class StoreCakeRequest extends FormRequest
             'price' => 'required|numeric',
             'quantity' => 'integer',
             'is_available' => 'boolean',
+			'subscribers' => 'array',
         ];
     }
 }

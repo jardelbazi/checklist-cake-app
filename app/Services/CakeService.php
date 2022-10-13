@@ -20,7 +20,7 @@ class CakeService
 	{
 		$cake = $this->cakeRepositoy->create($data);
 
-		if (filled($data['subscribers'])) {
+		if (isset($data['subscribers'])) {
 			foreach ($data['subscribers'] as $subscriber) {
 				$subscriber = $cake->subscribers()->create($subscriber);
 				dispatch(new CakeCreatedJob($subscriber));

@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use Database\Factories\CakeSubscribeFactory;
+use Database\Factories\CakeSubscriberFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -21,8 +21,8 @@ class CakeSubscriber extends Model
 		return $this->hasOne(Cake::class);
 	}
 
-	protected static function newFactory(): CakeSubscribeFactory
+	protected static function newFactory(): CakeSubscriberFactory
 	{
-		return CakeSubscribeFactory::new();
+		return CakeSubscriberFactory::new();
 	}
 }
