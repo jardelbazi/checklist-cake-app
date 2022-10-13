@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Cakes\Integrations;
+namespace Tests\Feature\Cakes;
 
 use App\Models\{
 	Cake,
